@@ -1,0 +1,65 @@
+#include <iostream>
+#include <fstream>
+#include <locale>
+#include "consts.h"
+#include "myfuncs.h"
+#include "tchar.h"
+
+char b;
+using namespace std;
+int _tmain(int argc, _TCHAR* argv[])
+{
+    setlocale(LC_ALL, "Russian");
+    ifstream fin(NAME_IN_FILE);
+    ofstream fout(NAME_OUT_FILE);
+
+    char inn{ ZERO_ZERO };
+    char outt{ ZERO_ZERO };
+    char next{ ZERO_ZERO };
+
+    if (fin.is_open() && fout.is_open())
+    {
+        while (true)
+        {
+            cout << "Ввод из консоли (0) из файла (1) ? - " << endl;
+            inn = getOperator();
+            cout << "вывод в консоли (0) в файла (1) ? - " << endl;
+            outt = getOperator();
+
+            if (ZERO_ZERO == inn && ZERO_ZERO == outt)
+            {
+                myfunc(cin, cout, inn);
+                next = getNext();
+                if (ZERO_ZERO == next)break;
+            }
+            else if (ZERO_ZERO == inn && ONE_ONE == outt)
+            {
+                
+                myfunc(cin, fout, inn);
+                next = getNext();
+                if (ZERO_ZERO == next)break;
+            }
+            else if (ONE_ONE == inn && ZERO_ZERO == outt)
+            {
+                
+                myfunc(fin, cout, inn);
+                break;
+            }
+            else if (ONE_ONE == inn && ONE_ONE == outt)
+            {
+                
+                myfunc(fin, fout, inn);
+                break;
+            }
+        }
+    }
+    else
+    {
+        cout << "Ошибка при открытии файла" << endl;
+    }
+    fin.close();
+    fout.close();
+    system("pause");
+    return 0;
+}
+
